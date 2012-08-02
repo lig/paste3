@@ -375,7 +375,7 @@ class WSGIResponse(object):
         warnings.warn('WSGIResponse.has_header is deprecated, use '
                       'WSGIResponse.headers.has_key instead', DeprecationWarning,
                       2)
-        return self.headers.has_key(header)
+        return header in self.headers
 
     def set_cookie(self, key, value='', max_age=None, expires=None, path='/',
                    domain=None, secure=None, httponly=None):

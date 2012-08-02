@@ -38,7 +38,7 @@ class UserDict:
     def iterkeys(self): return iter(self.data.keys())
     def itervalues(self): return iter(self.data.values())
     def values(self): return list(self.data.values())
-    def has_key(self, key): return self.data.has_key(key)
+    def has_key(self, key): return key in self.data
     def update(self, dict):
         if isinstance(dict, UserDict):
             self.data.update(dict.data)
@@ -48,11 +48,11 @@ class UserDict:
             for k, v in list(dict.items()):
                 self[k] = v
     def get(self, key, failobj=None):
-        if not self.has_key(key):
+        if key not in self:
             return failobj
         return self[key]
     def setdefault(self, key, failobj=None):
-        if not self.has_key(key):
+        if key not in self:
             self[key] = failobj
         return self[key]
     def pop(self, key, *args):
@@ -91,7 +91,7 @@ class DictMixin:
             return False
         return True
     def __contains__(self, key):
-        return self.has_key(key)
+        return key in self
 
     # third level takes advantage of second level definitions
     def iteritems(self):

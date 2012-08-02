@@ -92,7 +92,7 @@ class PrintCatcher(filemixin.FileMixin):
     def write(self, v, currentThread=threading.currentThread):
         name = currentThread().getName()
         catchers = self._catchers
-        if not catchers.has_key(name):
+        if name not in catchers:
             self._defaultfunc(name, v)
         else:
             catcher = catchers[name]
@@ -140,7 +140,7 @@ class PrintCatcher(filemixin.FileMixin):
                    currentThread=threading.currentThread):
         if name is None:
             name = currentThread().getName()
-        assert self._catchers.has_key(name), (
+        assert name in self._catchers, (
             "There is no PrintCatcher catcher for the thread %r" % name)
         del self._catchers[name]
 
@@ -192,7 +192,7 @@ class StdinCatcher(filemixin.FileMixin):
     def read(self, size=None, currentThread=threading.currentThread):
         name = currentThread().getName()
         catchers = self._catchers
-        if not catchers.has_key(name):
+        if name not in catchers:
             return self._defaultfunc(name, size)
         else:
             catcher = catchers[name]
@@ -222,7 +222,7 @@ class StdinCatcher(filemixin.FileMixin):
                    currentThread=threading.currentThread):
         if name is None:
             name = currentThread().getName()
-        assert self._catchers.has_key(name), (
+        assert name in self._catchers, (
             "There is no StdinCatcher catcher for the thread %r" % name)
         del self._catchers[name]
 

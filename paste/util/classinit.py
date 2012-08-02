@@ -5,7 +5,7 @@ class ClassInitMeta(type):
 
     def __new__(meta, class_name, bases, new_attrs):
         cls = type.__new__(meta, class_name, bases, new_attrs)
-        if (new_attrs.has_key('__classinit__')
+        if ('__classinit__' in new_attrs
             and not isinstance(cls.__classinit__, staticmethod)):
             setattr(cls, '__classinit__',
                     staticmethod(cls.__classinit__.im_func))
