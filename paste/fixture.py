@@ -12,7 +12,7 @@ effects of command-line scripts.
 import sys
 import random
 import urllib
-import urlparse
+import urllib.parse
 import mimetypes
 import time
 import cgi
@@ -20,11 +20,11 @@ import os
 import shutil
 import smtplib
 import shlex
-from Cookie import BaseCookie
+from http.cookies import BaseCookie
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 import re
 try:
     import subprocess
@@ -756,11 +756,11 @@ class TestResponse(object):
 
         All hostnames and schemes will be ignored.
         """
-        scheme, host, path, query, fragment = urlparse.urlsplit(href)
+        scheme, host, path, query, fragment = urllib.parse.urlsplit(href)
         # We
         scheme = host = fragment = ''
-        href = urlparse.urlunsplit((scheme, host, path, query, fragment))
-        href = urlparse.urljoin(self.request.full_url, href)
+        href = urllib.parse.urlunsplit((scheme, host, path, query, fragment))
+        href = urllib.parse.urljoin(self.request.full_url, href)
         method = method.lower()
         assert method in ('get', 'post'), (
             'Only "get" or "post" are allowed for method (you gave %r)'

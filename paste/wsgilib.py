@@ -14,9 +14,9 @@ from paste.response import error_body_response, error_response, error_response_a
 
 from traceback import print_exception
 import urllib
-from cStringIO import StringIO
+from io import StringIO
 import sys
-from urlparse import urlsplit
+from urllib.parse import urlsplit
 import warnings
 
 __all__ = ['add_close', 'add_start_close', 'capture_output', 'catch_errors',

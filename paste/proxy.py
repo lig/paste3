@@ -29,8 +29,8 @@ TODO:
   
 """
 
-import httplib
-import urlparse
+import http.client
+import urllib.parse
 import urllib
 
 from paste import httpexceptions
@@ -54,7 +54,7 @@ class Proxy(object):
     def __init__(self, address, allowed_request_methods=(),
                  suppress_http_headers=()):
         self.address = address
-        self.parsed = urlparse.urlsplit(address)
+        self.parsed = urllib.parse.urlsplit(address)
         self.scheme = self.parsed[0].lower()
         self.host = self.parsed[1]
         self.path = self.parsed[2]
@@ -70,9 +70,9 @@ class Proxy(object):
             return httpexceptions.HTTPBadRequest("Disallowed")(environ, start_response)
 
         if self.scheme == 'http':
-            ConnClass = httplib.HTTPConnection
+            ConnClass = http.client.HTTPConnection
         elif self.scheme == 'https':
-            ConnClass = httplib.HTTPSConnection
+            ConnClass = http.client.HTTPSConnection
         else:
             raise ValueError(
                 "Unknown scheme for %r: %r" % (self.address, self.scheme))
@@ -107,7 +107,7 @@ class Proxy(object):
             if request_path and request_path[0] == '/':
                 request_path = request_path[1:]
                 
-            path = urlparse.urljoin(self.path, request_path)
+            path = urllib.parse.urljoin(self.path, request_path)
         else:
             path = path_info
         if environ.get('QUERY_STRING'):
@@ -188,9 +188,9 @@ class TransparentProxy(object):
         else:
             conn_scheme = self.force_scheme
         if conn_scheme == 'http':
-            ConnClass = httplib.HTTPConnection
+            ConnClass = http.client.HTTPConnection
         elif conn_scheme == 'https':
-            ConnClass = httplib.HTTPSConnection
+            ConnClass = http.client.HTTPSConnection
         else:
             raise ValueError(
                 "Unknown scheme %r" % scheme)

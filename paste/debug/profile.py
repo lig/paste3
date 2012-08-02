@@ -13,7 +13,7 @@ import hotshot.stats
 import threading
 import cgi
 import time
-from cStringIO import StringIO
+from io import StringIO
 from paste import response
 
 __all__ = ['ProfileMiddleware', 'profile_decorator']

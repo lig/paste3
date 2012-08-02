@@ -23,7 +23,7 @@ session for each request, with no caching.  Also, sessions aren't
 expired.
 """
 
-from Cookie import SimpleCookie
+from http.cookies import SimpleCookie
 import time
 import random
 import os
@@ -32,7 +32,7 @@ import threading
 import tempfile
 
 try:
-    import cPickle
+    import pickle
 except ImportError:
     import pickle as cPickle
 try:
@@ -203,7 +203,7 @@ class FileSession(object):
             return self._data
         if os.path.exists(self.filename()):
             f = open(self.filename(), 'rb')
-            self._data = cPickle.load(f)
+            self._data = pickle.load(f)
             f.close()
         else:
             self._data = {}
@@ -218,7 +218,7 @@ class FileSession(object):
                     os.unlink(filename)
             else:
                 f = open(filename, 'wb')
-                cPickle.dump(self._data, f)
+                pickle.dump(self._data, f)
                 f.close()
                 if not exists and self.chmod:
                     os.chmod(filename, self.chmod)

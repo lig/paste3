@@ -15,9 +15,9 @@ from paste.response import header_value, remove_header
 from paste.httpheaders import CONTENT_LENGTH
 
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 
 class GzipOutput(object):
     pass

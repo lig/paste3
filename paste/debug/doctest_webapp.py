@@ -19,7 +19,7 @@ import shutil
 import re
 import cgi
 import rfc822
-from cStringIO import StringIO
+from io import StringIO
 from paste.util import PySourceColor
 
 

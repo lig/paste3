@@ -56,7 +56,7 @@ login.
 __all__ = ['AuthOpenIDHandler']
 
 import cgi
-import urlparse
+import urllib.parse
 import re
 
 import paste.request
@@ -126,7 +126,7 @@ class AuthOpenIDHandler(object):
                                                               with_query_string=False)
 
             path = re.sub(self.auth_prefix, '', environ['PATH_INFO'])
-            request['parsed_uri'] = urlparse.urlparse(path)
+            request['parsed_uri'] = urllib.parse.urlparse(path)
             request['query'] = dict(paste.request.parse_querystring(environ))
 
             path = request['parsed_uri'][2]
@@ -289,7 +289,7 @@ class AuthOpenIDHandler(object):
     def build_url(self, request, action, **query):
         """Build a URL relative to the server base_url, with the given
         query parameters added."""
-        base = urlparse.urljoin(request['base_url'], self.auth_prefix + '/' + action)
+        base = urllib.parse.urljoin(request['base_url'], self.auth_prefix + '/' + action)
         return appendArgs(base, query)
 
     def redirect(self, request, redirect_url):

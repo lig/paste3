@@ -17,7 +17,7 @@ necessary.
 
 """
 
-from cStringIO import StringIO
+from io import StringIO
 import re
 import cgi
 from paste.util import threadedprint

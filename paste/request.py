@@ -18,9 +18,9 @@ environment to solve common requirements.
 
 """
 import cgi
-from Cookie import SimpleCookie, CookieError
-from StringIO import StringIO
-import urlparse
+from http.cookies import SimpleCookie, CookieError
+from io import StringIO
+import urllib.parse
 import urllib
 try:
     from UserDict import DictMixin
@@ -257,7 +257,7 @@ def resolve_relative_url(url, environ):
 
     """
     cur_url = construct_url(environ, with_query_string=False)
-    return urlparse.urljoin(cur_url, url)
+    return urllib.parse.urljoin(cur_url, url)
 
 def path_info_split(path_info):
     """

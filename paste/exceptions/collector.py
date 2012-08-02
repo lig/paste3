@@ -24,9 +24,9 @@ import sys
 import traceback
 import time
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 import linecache
 from paste.exceptions import serial_number_generator
 import warnings

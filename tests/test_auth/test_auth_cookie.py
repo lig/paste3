@@ -6,7 +6,7 @@ from paste.auth import cookie
 from paste.wsgilib import raw_interactive, dump_environ
 from paste.response import header_value
 from paste.httpexceptions import *
-from Cookie import SimpleCookie
+from http.cookies import SimpleCookie
 import urllib2, os
         
 def build(application,setenv, *args, **kwargs):

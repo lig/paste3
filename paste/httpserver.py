@@ -19,14 +19,14 @@ if pyOpenSSL is installed, it also provides SSL capabilities.
 
 import atexit
 import traceback
-import socket, sys, threading, urlparse, Queue, urllib
+import socket, sys, threading, urllib.parse, queue, urllib
 import posixpath
 import time
-import thread
+import _thread
 import os
 from itertools import count
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from SocketServer import ThreadingMixIn
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from socketserver import ThreadingMixIn
 from paste.util import converters
 import logging
 try:
@@ -176,7 +176,7 @@ class WSGIHandlerMixin:
         argument can be used to override any settings.
         """
 
-        (scheme, netloc, path, query, fragment) = urlparse.urlsplit(self.path)
+        (scheme, netloc, path, query, fragment) = urllib.parse.urlsplit(self.path)
         path = urllib.unquote(path)
         endslash = path.endswith('/')
         path = posixpath.normpath(path)
@@ -244,7 +244,7 @@ class WSGIHandlerMixin:
         if hasattr(self.server, 'thread_pool'):
             # Now that we know what the request was for, we should
             # tell the thread pool what its worker is working on
-            self.server.thread_pool.worker_tracker[thread.get_ident()][1] = self.wsgi_environ
+            self.server.thread_pool.worker_tracker[_thread.get_ident()][1] = self.wsgi_environ
             self.wsgi_environ['paste.httpserver.thread_pool'] = self.server.thread_pool
 
         for k, v in self.headers.items():
@@ -575,7 +575,7 @@ class ThreadPool(object):
         self.nworkers = nworkers
         self.max_requests = max_requests
         self.name = name
-        self.queue = Queue.Queue()
+        self.queue = queue.Queue()
         self.workers = []
         self.daemon = daemon
         if logger is None:
@@ -848,7 +848,7 @@ class ThreadPool(object):
         callables.
         """
         thread_obj = threading.currentThread()
-        thread_id = thread_obj.thread_id = thread.get_ident()
+        thread_id = thread_obj.thread_id = _thread.get_ident()
         self.workers.append(thread_obj)
         self.idle_workers.append(thread_id)
         requests_processed = 0

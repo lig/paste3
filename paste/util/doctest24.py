@@ -98,7 +98,7 @@ import __future__
 import sys, traceback, inspect, linecache, os, re, types
 import unittest, difflib, pdb, tempfile
 import warnings
-from StringIO import StringIO
+from io import StringIO
 
 # Don't whine about the deprecated is_private function in this
 # module's tests.

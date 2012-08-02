@@ -10,7 +10,7 @@ for more.
 """
 
 import cgitb
-from cStringIO import StringIO
+from io import StringIO
 import sys
 
 from paste.util import converters

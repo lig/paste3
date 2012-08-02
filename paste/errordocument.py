@@ -11,7 +11,7 @@ URL where the content can be displayed to the user as an error document.
 
 import warnings
 import sys
-from urlparse import urlparse
+from urllib.parse import urlparse
 from paste.recursive import ForwardRequestException, RecursiveMiddleware, RecursionLoop
 from paste.util import converters
 from paste.response import replace_header

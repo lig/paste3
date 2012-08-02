@@ -23,7 +23,7 @@ Raise ``ForwardRequestException(new_path_info)`` to do a forward
 (aborting the current request).
 """
 
-from cStringIO import StringIO
+from io import StringIO
 import warnings
 
 __all__ = ['RecursiveMiddleware']

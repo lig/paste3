@@ -28,7 +28,7 @@ import sys
 import os
 import cgi
 import traceback
-from cStringIO import StringIO
+from io import StringIO
 import pprint
 import itertools
 import time

@@ -3,7 +3,7 @@
 # Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 import cgi
 from nose.tools import assert_raises
-from StringIO import StringIO
+from io import StringIO
 from paste.fixture import TestApp
 from paste.wsgiwrappers import WSGIRequest
 from paste.util.multidict import MultiDict, UnicodeMultiDict

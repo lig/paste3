@@ -1,5 +1,5 @@
 import cgi
-from cStringIO import StringIO
+from io import StringIO
 from paste.request import *
 from paste.util.multidict import MultiDict
 

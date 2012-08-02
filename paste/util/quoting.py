@@ -2,7 +2,7 @@
 # Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 
 import cgi
-import htmlentitydefs
+import html.entities
 import urllib
 import re
 
@@ -36,7 +36,7 @@ def html_quote(v, encoding=None):
         return cgi.escape(unicode(v).encode(encoding), 1)
 
 _unquote_re = re.compile(r'&([a-zA-Z]+);')
-def _entity_subber(match, name2c=htmlentitydefs.name2codepoint):
+def _entity_subber(match, name2c=html.entities.name2codepoint):
     code = name2c.get(match.group(1))
     if code:
         return unichr(code)

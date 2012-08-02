@@ -8,7 +8,7 @@ to deal with an incoming request and sending a response.
 import re
 import warnings
 from pprint import pformat
-from Cookie import SimpleCookie
+from http.cookies import SimpleCookie
 from paste.request import EnvironHeaders, get_cookie_dict, \
     parse_dict_querystring, parse_formvars
 from paste.util.multidict import MultiDict, UnicodeMultiDict
