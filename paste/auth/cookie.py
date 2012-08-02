@@ -139,11 +139,14 @@ class AuthCookieSigner(object):
         cookie is handled server-side in the auth() function.
         """
         cookie = base64.encodestring(
-            hmac.new(self.secret, content, sha1).digest() +
-            make_time(time.time() + 60*self.timeout) +
-            content)
-        cookie = cookie.replace("/", "_").replace("=", "~")
-        cookie = cookie.replace('\n', '').replace('\r', '')
+            hmac.new(
+                bytes(self.secret, 'latin-1'),
+                bytes(content, 'utf-8'),
+                sha1).digest() +
+            bytes(make_time(time.time() + 60 * self.timeout), 'utf-8') +
+            bytes(content, 'utf-8'))
+        cookie = cookie.replace(b"/", b"_").replace(b"=", b"~")
+        cookie = cookie.replace(b'\n', b'').replace(b'\r', b'')
         if len(cookie) > self.maxlen:
             raise CookieTooLarge(content, cookie)
         return cookie
