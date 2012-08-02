@@ -588,7 +588,7 @@ __all__ = ['HTTPException', 'HTTPRedirection', 'HTTPError' ]
 
 _exceptions = {}
 for name, value in globals().items():
-    if (isinstance(value, (type, types.ClassType)) and
+    if (isinstance(value, (type, type)) and
         issubclass(value, HTTPException) and
         value.code):
         _exceptions[value.code] = value

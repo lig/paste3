@@ -16,7 +16,7 @@ def async_raise(tid, exctype):
 
     tid is the value given by thread.get_ident() (an integer).
     Raise SystemExit to kill a thread."""
-    if not isinstance(exctype, (types.ClassType, type)):
+    if not isinstance(exctype, (type, type)):
         raise TypeError("Only types can be raised (not instances)")
     if not isinstance(tid, int):
         raise TypeError("tid must be an integer")

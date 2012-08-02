@@ -588,7 +588,7 @@ class Popen(object):
                 # Detach and turn into fd
                 p2cwrite = p2cwrite.Detach()
                 p2cwrite = msvcrt.open_osfhandle(p2cwrite, 0)
-            elif type(stdin) == types.IntType:
+            elif type(stdin) == int:
                 p2cread = msvcrt.get_osfhandle(stdin)
             else:
                 # Assuming file-like object
@@ -602,7 +602,7 @@ class Popen(object):
                 # Detach and turn into fd
                 c2pread = c2pread.Detach()
                 c2pread = msvcrt.open_osfhandle(c2pread, 0)
-            elif type(stdout) == types.IntType:
+            elif type(stdout) == int:
                 c2pwrite = msvcrt.get_osfhandle(stdout)
             else:
                 # Assuming file-like object
@@ -618,7 +618,7 @@ class Popen(object):
                 errread = msvcrt.open_osfhandle(errread, 0)
             elif stderr == STDOUT:
                 errwrite = c2pwrite
-            elif type(stderr) == types.IntType:
+            elif type(stderr) == int:
                 errwrite = msvcrt.get_osfhandle(stderr)
             else:
                 # Assuming file-like object
@@ -661,7 +661,7 @@ class Popen(object):
                            errread, errwrite):
             """Execute program (MS Windows version)"""
 
-            if not isinstance(args, types.StringTypes):
+            if not isinstance(args, str):
                 args = list2cmdline(args)
 
             # Process startup details
@@ -826,7 +826,7 @@ class Popen(object):
                 pass
             elif stdin == PIPE:
                 p2cread, p2cwrite = os.pipe()
-            elif type(stdin) == types.IntType:
+            elif type(stdin) == int:
                 p2cread = stdin
             else:
                 # Assuming file-like object
@@ -836,7 +836,7 @@ class Popen(object):
                 pass
             elif stdout == PIPE:
                 c2pread, c2pwrite = os.pipe()
-            elif type(stdout) == types.IntType:
+            elif type(stdout) == int:
                 c2pwrite = stdout
             else:
                 # Assuming file-like object
@@ -848,7 +848,7 @@ class Popen(object):
                 errread, errwrite = os.pipe()
             elif stderr == STDOUT:
                 errwrite = c2pwrite
-            elif type(stderr) == types.IntType:
+            elif type(stderr) == int:
                 errwrite = stderr
             else:
                 # Assuming file-like object
@@ -887,7 +887,7 @@ class Popen(object):
                            errread, errwrite):
             """Execute program (POSIX version)"""
 
-            if isinstance(args, types.StringTypes):
+            if isinstance(args, str):
                 args = [args]
 
             if shell:
