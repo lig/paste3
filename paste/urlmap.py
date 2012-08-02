@@ -5,12 +5,9 @@ Map URL prefixes to WSGI applications.  See ``URLMap``
 """
 
 try:
-    from UserDict import DictMixin
+    from collections import MutableMapping as DictMixin
 except ImportError:
-    if sys.version_info.major == 3:
-        from collections import MutableMapping as DictMixin
-    else:
-        from paste.util.UserDict24 import DictMixin
+    from UserDict import DictMixin
 import re
 import os
 import cgi

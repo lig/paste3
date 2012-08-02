@@ -22,13 +22,12 @@ from http.cookies import SimpleCookie, CookieError
 from io import StringIO
 import urllib.parse
 import urllib
-import sys
 try:
-    from UserDict import DictMixin
+    from collections import MutableMapping as DictMixin
 except ImportError:
-    if sys.version_info.major == 3:
-        from collections import MutableMapping as DictMixin
-    else:
+    try:
+        from UserDict import DictMixin
+    except ImportError:
         from paste.util.UserDict24 import DictMixin
 from paste.util.multidict import MultiDict
 

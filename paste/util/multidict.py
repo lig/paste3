@@ -4,12 +4,10 @@ import cgi
 import copy
 import sys
 try:
-    from UserDict import DictMixin
+    from collections import MutableMapping as DictMixin
 except ImportError:
-    if sys.version_info.major == 3:
-        from collections import MutableMapping as DictMixin
-    else:
-        from paste.util.UserDict24 import DictMixin
+    from UserDict import DictMixin
+
 
 class MultiDict(DictMixin):
 
@@ -206,6 +204,7 @@ class MultiDict(DictMixin):
     def itervalues(self):
         for k, v in self._items:
             yield v
+
 
 class UnicodeMultiDict(DictMixin):
     """
