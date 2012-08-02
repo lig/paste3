@@ -3,7 +3,7 @@
 # the MIT License: http://www.opensource.org/licenses/mit-license.php
 from paste.fileapp import *
 from paste.fixture import *
-from rfc822 import parsedate_tz, mktime_tz
+from email.utils import parsedate_tz, mktime_tz
 import time, string
 
 def test_data():

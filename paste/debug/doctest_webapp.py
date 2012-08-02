@@ -18,7 +18,7 @@ import sys
 import shutil
 import re
 import cgi
-import rfc822
+from email.message import Message
 from io import StringIO
 from paste.util import PySourceColor
 
@@ -129,7 +129,7 @@ def show(path_info, example_name):
         env=_make_env())
     stdout, errors = proc.communicate()
     stdout = StringIO(stdout)
-    headers = rfc822.Message(stdout)
+    headers = Message(stdout)
     content = stdout.read()
     for header, value in list(headers.items()):
         if header.lower() == 'status' and int(value.split()[0]) == 200:

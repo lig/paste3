@@ -137,7 +137,7 @@ dashes to give CamelCase style names.
 import mimetypes
 import urllib.request, urllib.error, urllib.parse
 import re
-from rfc822 import formatdate, parsedate_tz, mktime_tz
+from email.utils import formatdate, parsedate_tz, mktime_tz
 from time import time as now
 from .httpexceptions import HTTPBadRequest
 
