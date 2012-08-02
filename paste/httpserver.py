@@ -580,7 +580,7 @@ class ThreadPool(object):
         self.daemon = daemon
         if logger is None:
             logger = logging.getLogger('paste.httpserver.ThreadPool')
-        if isinstance(logger, basestring):
+        if isinstance(logger, str):
             logger = logging.getLogger(logger)
         self.logger = logger
         self.error_email = error_email

@@ -179,7 +179,7 @@ class FileSession(object):
                  chmod=None,
                  expiration=2880, # in minutes: 48 hours
                  ):
-        if chmod and isinstance(chmod, basestring):
+        if chmod and isinstance(chmod, str):
             chmod = int(chmod, 8)
         self.chmod = chmod
         if not sid:

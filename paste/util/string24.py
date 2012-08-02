@@ -462,7 +462,7 @@ def zfill(x, width):
     of the specified width.  The string x is never truncated.
 
     """
-    if not isinstance(x, basestring):
+    if not isinstance(x, str):
         x = repr(x)
     return x.zfill(width)
 

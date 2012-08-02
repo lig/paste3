@@ -106,9 +106,9 @@ def make_filter(
     setup_console_handler=True,
     set_logger_level=logging.DEBUG):
     from paste.util.converters import asbool
-    if isinstance(logging_level, basestring):
+    if isinstance(logging_level, str):
         logging_level = logging._levelNames[logging_level]
-    if isinstance(set_logger_level, basestring):
+    if isinstance(set_logger_level, str):
         set_logger_level = logging._levelNames[set_logger_level]
     return TransLogger(
         app,

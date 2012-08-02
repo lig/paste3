@@ -34,7 +34,7 @@ class GrantIPMiddleware(object):
         self.clobber_username = clobber_username
 
     def _convert_user_role(self, username, roles):
-        if roles and isinstance(roles, basestring):
+        if roles and isinstance(roles, str):
             roles = roles.split(',')
         return (username, roles)
         

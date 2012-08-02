@@ -76,7 +76,7 @@ class AbstractFormatter(object):
                 lines.append(self.format_long_source(
                     source, long_source))
         etype = exc_data.exception_type
-        if not isinstance(etype, basestring):
+        if not isinstance(etype, str):
             etype = etype.__name__
         exc_info = self.format_exception_info(
             etype,

@@ -810,7 +810,7 @@ class TestResponse(object):
         if 'no' in kw:
             no = kw['no']
             del kw['no']
-            if isinstance(no, basestring):
+            if isinstance(no, str):
                 no = [no]
         else:
             no = []

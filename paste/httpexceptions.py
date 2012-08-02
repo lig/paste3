@@ -177,9 +177,9 @@ class HTTPException(Exception):
         assert isinstance(headers, (type(None), list)), (
             "headers must be None or a list: %r"
             % headers)
-        assert isinstance(detail, (type(None), basestring)), (
+        assert isinstance(detail, (type(None), str)), (
             "detail must be None or a string: %r" % detail)
-        assert isinstance(comment, (type(None), basestring)), (
+        assert isinstance(comment, (type(None), str)), (
             "comment must be None or a string: %r" % comment)
         self.headers = headers or tuple()
         for req in self.required_headers:

@@ -125,7 +125,7 @@ class AuthCookieSigner(object):
     """
     def __init__(self, secret = None, timeout = None, maxlen = None):
         self.timeout = timeout or 30
-        if isinstance(timeout, basestring):
+        if isinstance(timeout, str):
             raise ValueError(
                 "Timeout must be a number (minutes), not a string (%r)"
                 % timeout)
@@ -371,7 +371,7 @@ def make_auth_cookie(
             which is a typical browser maximum)
         
     """
-    if isinstance(scanlist, basestring):
+    if isinstance(scanlist, str):
         scanlist = scanlist.split()
     if secret is None and global_conf.get('secret'):
         secret = global_conf['secret']

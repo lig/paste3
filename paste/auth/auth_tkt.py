@@ -343,7 +343,7 @@ class AuthTKTMiddleware(object):
         return self.app(environ, cookie_setting_start_response)
 
     def set_user_cookie(self, environ, userid, tokens, user_data):
-        if not isinstance(tokens, basestring):
+        if not isinstance(tokens, str):
             tokens = ','.join(tokens)
         if self.include_ip:
             remote_addr = environ['REMOTE_ADDR']

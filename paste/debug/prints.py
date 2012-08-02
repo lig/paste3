@@ -71,7 +71,7 @@ class PrintDebugMiddleware(object):
         # the entry point
         self.app = app
         self.force_content_type = force_content_type
-        if isinstance(print_wsgi_errors, basestring):
+        if isinstance(print_wsgi_errors, str):
             from paste.deploy.converters import asbool
             print_wsgi_errors = asbool(print_wsgi_errors)
         self.print_wsgi_errors = print_wsgi_errors
