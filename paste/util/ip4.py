@@ -19,7 +19,7 @@ __date__ = "2006-01-20"
 # Imports
 # -------
 
-import intset
+from . import intset
 import socket
 
 

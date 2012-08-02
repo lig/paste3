@@ -14,7 +14,7 @@ two-phase commit goodness that I don't need.
    This is experimental, and will change in the future.
 """
 from paste.httpexceptions import HTTPException
-from wsgilib import catch_errors
+from .wsgilib import catch_errors
 
 class TransactionManagerMiddleware(object):
 

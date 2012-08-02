@@ -139,7 +139,7 @@ import urllib.request, urllib.error, urllib.parse
 import re
 from rfc822 import formatdate, parsedate_tz, mktime_tz
 from time import time as now
-from httpexceptions import HTTPBadRequest
+from .httpexceptions import HTTPBadRequest
 
 __all__ = ['get_header', 'list_headers', 'normalize_headers',
            'HTTPHeader', 'EnvironVariable' ]
