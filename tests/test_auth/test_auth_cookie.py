@@ -12,7 +12,7 @@ import urllib.request, urllib.error, urllib.parse, os
 def build(application,setenv, *args, **kwargs):
     def setter(environ, start_response):
         save = environ['paste.auth.cookie'].append
-        for (k,v) in setenv.items():
+        for (k,v) in list(setenv.items()):
             save(k)
             environ[k] = v
         return application(environ, start_response)

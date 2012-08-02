@@ -300,7 +300,7 @@ class ExceptionCollector(object):
                 supp = factory(*args)
                 data['supplement'] = self.collectSupplement(supp, tb)
                 if data['supplement'].extra:
-                    for key, value in data['supplement'].extra.items():
+                    for key, value in list(data['supplement'].extra.items()):
                         extra_data.setdefault(key, []).append(value)
             except:
                 if DEBUG_EXCEPTION_FORMATTER:
@@ -400,13 +400,13 @@ class Bunch(object):
     """
 
     def __init__(self, **attrs):
-        for name, value in attrs.items():
+        for name, value in list(attrs.items()):
             setattr(self, name, value)
 
     def __repr__(self):
         name = '<%s ' % self.__class__.__name__
         name += ' '.join(['%s=%r' % (name, str(value)[:30])
-                          for name, value in self.__dict__.items()
+                          for name, value in list(self.__dict__.items())
                           if not name.startswith('_')])
         return name + '>'
 

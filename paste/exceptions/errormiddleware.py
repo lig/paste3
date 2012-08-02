@@ -286,7 +286,7 @@ class Supplement(object):
                      'wsgi.multithread', 'wsgi.multiprocess',
                      'wsgi.run_once', 'wsgi.version',
                      'wsgi.url_scheme']
-        for name, value in self.environ.items():
+        for name, value in list(self.environ.items()):
             if name.upper() == name:
                 if value:
                     cgi_vars[name] = value

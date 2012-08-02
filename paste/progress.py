@@ -206,7 +206,7 @@ class UploadProgressReporter(object):
         for map in [self.report(env) for env in self.monitor.uploads()
                                              if self.match(environ, env)]:
             parts = []
-            for k, v in map.items():
+            for k, v in list(map.items()):
                 v = str(v).replace("\\", "\\\\").replace('"', '\\"')
                 parts.append('%s: "%s"' % (k, v))
             body.append("{ %s }" % ", ".join(parts))

@@ -200,12 +200,12 @@ class HTTPException(Exception):
                 'detail': escfunc(self.detail),
                 'comment': comment_escfunc(self.comment)}
         if HTTPException.template != self.template:
-            for (k, v) in environ.items():
+            for (k, v) in list(environ.items()):
                 args[k] = escfunc(v)
             if self.headers:
                 for (k, v) in self.headers:
                     args[k.lower()] = escfunc(v)
-        for key, value in args.items():
+        for key, value in list(args.items()):
             if isinstance(value, unicode):
                 args[key] = value.encode('utf8', 'xmlcharrefreplace')
         return template % args
@@ -587,7 +587,7 @@ class HTTPVersionNotSupported(HTTPServerError):
 __all__ = ['HTTPException', 'HTTPRedirection', 'HTTPError' ]
 
 _exceptions = {}
-for name, value in globals().items():
+for name, value in list(globals().items()):
     if (isinstance(value, (type, type)) and
         issubclass(value, HTTPException) and
         value.code):

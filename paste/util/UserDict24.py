@@ -32,12 +32,12 @@ class UserDict:
             self.data = data
         c.update(self)
         return c
-    def keys(self): return self.data.keys()
-    def items(self): return self.data.items()
-    def iteritems(self): return self.data.iteritems()
-    def iterkeys(self): return self.data.iterkeys()
-    def itervalues(self): return self.data.itervalues()
-    def values(self): return self.data.values()
+    def keys(self): return list(self.data.keys())
+    def items(self): return list(self.data.items())
+    def iteritems(self): return iter(self.data.items())
+    def iterkeys(self): return iter(self.data.keys())
+    def itervalues(self): return iter(self.data.values())
+    def values(self): return list(self.data.values())
     def has_key(self, key): return self.data.has_key(key)
     def update(self, dict):
         if isinstance(dict, UserDict):
@@ -45,7 +45,7 @@ class UserDict:
         elif isinstance(dict, type(self.data)):
             self.data.update(dict)
         else:
-            for k, v in dict.items():
+            for k, v in list(dict.items()):
                 self[k] = v
     def get(self, key, failobj=None):
         if not self.has_key(key):
@@ -82,7 +82,7 @@ class DictMixin:
 
     # second level definitions support higher levels
     def __iter__(self):
-        for k in self.keys():
+        for k in list(self.keys()):
             yield k
     def has_key(self, key):
         try:
@@ -102,14 +102,14 @@ class DictMixin:
 
     # fourth level uses definitions from lower levels
     def itervalues(self):
-        for _, v in self.iteritems():
+        for _, v in self.items():
             yield v
     def values(self):
-        return [v for _, v in self.iteritems()]
+        return [v for _, v in self.items()]
     def items(self):
-        return list(self.iteritems())
+        return list(self.items())
     def clear(self):
-        for key in self.keys():
+        for key in list(self.keys()):
             del self[key]
     def setdefault(self, key, default):
         try:
@@ -131,7 +131,7 @@ class DictMixin:
         return value
     def popitem(self):
         try:
-            k, v = self.iteritems().next()
+            k, v = iter(self.items()).next()
         except StopIteration:
             raise KeyError('container is empty')
         del self[k]
@@ -139,13 +139,13 @@ class DictMixin:
     def update(self, other):
         # Make progressively weaker assumptions about "other"
         if hasattr(other, 'iteritems'):  # iteritems saves memory and lookups
-            for k, v in other.iteritems():
+            for k, v in other.items():
                 self[k] = v
         elif hasattr(other, '__iter__'): # iter saves memory
             for k in other:
                 self[k] = other[k]
         else:
-            for k in other.keys():
+            for k in list(other.keys()):
                 self[k] = other[k]
     def get(self, key, default=None):
         try:
@@ -153,15 +153,15 @@ class DictMixin:
         except KeyError:
             return default
     def __repr__(self):
-        return repr(dict(self.iteritems()))
+        return repr(dict(iter(self.items())))
     def __cmp__(self, other):
         if other is None:
             return 1
         if isinstance(other, DictMixin):
-            other = dict(other.iteritems())
-        return cmp(dict(self.iteritems()), other)
+            other = dict(iter(other.items()))
+        return cmp(dict(iter(self.items())), other)
     def __len__(self):
-        return len(self.keys())
+        return len(list(self.keys()))
     
     def __nonzero__(self):
-        return bool(self.iteritems())
+        return bool(iter(self.items()))

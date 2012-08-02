@@ -206,7 +206,7 @@ class DecoratedProfile(object):
     def format_function(self, func, *args, **kw):
         args = map(repr, args)
         args.extend(
-            ['%s=%r' % (k, v) for k, v in kw.items()])
+            ['%s=%r' % (k, v) for k, v in list(kw.items())])
         return '%s(%s)' % (func.__name__, ', '.join(args))
             
             

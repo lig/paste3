@@ -88,7 +88,7 @@ class AuthDigestAuthenticator(object):
                  'nonce': nonce, 'opaque': opaque }
         if stale:
             parts['stale'] = 'true'
-        head = ", ".join(['%s="%s"' % (k, v) for (k, v) in parts.items()])
+        head = ", ".join(['%s="%s"' % (k, v) for (k, v) in list(parts.items())])
         head = [("WWW-Authenticate", 'Digest %s' % head)]
         return HTTPUnauthorized(headers=head)
 

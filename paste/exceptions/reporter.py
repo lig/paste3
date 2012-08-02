@@ -14,7 +14,7 @@ from paste.exceptions import formatter
 class Reporter(object):
 
     def __init__(self, **conf):
-        for name, value in conf.items():
+        for name, value in list(conf.items()):
             if not hasattr(self, name):
                 raise TypeError(
                     "The keyword argument %s was not expected"

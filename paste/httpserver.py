@@ -247,7 +247,7 @@ class WSGIHandlerMixin:
             self.server.thread_pool.worker_tracker[_thread.get_ident()][1] = self.wsgi_environ
             self.wsgi_environ['paste.httpserver.thread_pool'] = self.server.thread_pool
 
-        for k, v in self.headers.items():
+        for k, v in list(self.headers.items()):
             key = 'HTTP_' + k.replace("-","_").upper()
             if key in ('HTTP_CONTENT_TYPE','HTTP_CONTENT_LENGTH'):
                 continue
@@ -689,7 +689,7 @@ class ThreadPool(object):
                     result['busy'].append(worker)
             else:
                 result['idle'].append(worker)
-        for thread_id, (time_killed, worker) in self.dying_threads.items():
+        for thread_id, (time_killed, worker) in list(self.dying_threads.items()):
             if not self.thread_exists(thread_id):
                 # Cull dying threads that are actually dead and gone
                 self.logger.info('Killed thread %s no longer around',
@@ -813,7 +813,7 @@ class ThreadPool(object):
             return
         found = []
         now = time.time()
-        for thread_id, (time_killed, worker) in self.dying_threads.items():
+        for thread_id, (time_killed, worker) in list(self.dying_threads.items()):
             if not self.thread_exists(thread_id):
                 # Cull dying threads that are actually dead and gone
                 try:
@@ -1330,7 +1330,7 @@ def server_runner(wsgi_app, global_conf, **kwargs):
         if name in kwargs:
             kwargs[name] = asbool(kwargs[name])
     threadpool_options = {}
-    for name, value in kwargs.items():
+    for name, value in list(kwargs.items()):
         if name.startswith('threadpool_') and name != 'threadpool_workers':
             threadpool_options[name[len('threadpool_'):]] = value
             del kwargs[name]

@@ -19,7 +19,7 @@ def build_properties(cls, new_attrs):
     __classinit__), create or modify properties based on functions
     with special names ending in __get, __set, and __del.
     """
-    for name, value in new_attrs.items():
+    for name, value in list(new_attrs.items()):
         if (name.endswith('__get') or name.endswith('__set')
             or name.endswith('__del')):
             base = name[:-5]

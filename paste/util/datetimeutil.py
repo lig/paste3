@@ -182,7 +182,7 @@ _str2num = {'jan':1, 'feb':2, 'mar':3, 'apr':4,  'may':5, 'jun':6,
             'jul':7, 'aug':8, 'sep':9, 'oct':10, 'nov':11, 'dec':12 }
 
 def _month(val):
-    for (key, mon) in _str2num.items():
+    for (key, mon) in list(_str2num.items()):
         if key in val:
             return mon
     raise TypeError("unknown month '%s'" % val)

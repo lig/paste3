@@ -164,7 +164,7 @@ REQUEST_METHOD = EnvironVariable("REQUEST_METHOD")
 SCRIPT_NAME    = EnvironVariable("SCRIPT_NAME")
 PATH_INFO      = EnvironVariable("PATH_INFO")
 
-for _name, _obj in globals().items():
+for _name, _obj in list(globals().items()):
     if isinstance(_obj, EnvironVariable):
         __all__.append(_name)
 
@@ -559,7 +559,7 @@ def list_headers(general=None, request=None, response=None, entity=None):
                            (response, 'response'), (entity, 'entity')):
         if bool:
             search.append(strval)
-    return [head for head in _headers.values() if head.category in search]
+    return [head for head in list(_headers.values()) if head.category in search]
 
 def normalize_headers(response_headers, strict=True):
     """
@@ -733,7 +733,7 @@ class _CacheControl(_MultiValueHeader):
             result.append('max-age=%d' % max_age)
         if s_maxage is not None:
             result.append('s-maxage=%d' % s_maxage)
-        for (k, v) in extensions.items():
+        for (k, v) in list(extensions.items()):
             if k not in self.extensions:
                 raise AssertionError("unexpected extension used: '%s'" % k)
             result.append('%s="%s"' % (k.replace("_", "-"), v))
@@ -1086,12 +1086,12 @@ for (name,              category, version, style,      comment) in \
     klass(name, category, comment, version).__doc__ = comment
     del klass
 
-for head in _headers.values():
+for head in list(_headers.values()):
     headname = head.name.replace("-","_").upper()
     locals()[headname] = head
     __all__.append(headname)
 
 __pudge_all__ = __all__[:]
-for _name, _obj in globals().items():
+for _name, _obj in list(globals().items()):
     if isinstance(_obj, type) and issubclass(_obj, HTTPHeader):
         __pudge_all__.append(_name)

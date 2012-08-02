@@ -898,7 +898,7 @@ class DocTestFinder:
 
         # Look for tests in a module's contained objects.
         if inspect.ismodule(obj) and self._recurse:
-            for valname, val in obj.__dict__.items():
+            for valname, val in list(obj.__dict__.items()):
                 # Check if this contained object should be ignored.
                 if self._filter(val, name, valname):
                     continue
@@ -911,7 +911,7 @@ class DocTestFinder:
 
         # Look for tests in a module's __test__ dictionary.
         if inspect.ismodule(obj) and self._recurse:
-            for valname, val in getattr(obj, '__test__', {}).items():
+            for valname, val in list(getattr(obj, '__test__', {}).items()):
                 if not isinstance(valname, basestring):
                     raise ValueError("DocTestFinder.find: __test__ keys "
                                      "must be strings: %r" %
@@ -929,7 +929,7 @@ class DocTestFinder:
 
         # Look for tests in a class's contained objects.
         if inspect.isclass(obj) and self._recurse:
-            for valname, val in obj.__dict__.items():
+            for valname, val in list(obj.__dict__.items()):
                 # Check if this contained object should be ignored.
                 if self._filter(val, name, valname):
                     continue
@@ -1218,7 +1218,7 @@ class DocTestRunner:
             # Merge in the example's options.
             self.optionflags = original_optionflags
             if example.options:
-                for (optionflag, val) in example.options.items():
+                for (optionflag, val) in list(example.options.items()):
                     if val:
                         self.optionflags |= optionflag
                     else:
@@ -1401,7 +1401,7 @@ class DocTestRunner:
         passed = []
         failed = []
         totalt = totalf = 0
-        for x in self._name2ft.items():
+        for x in list(self._name2ft.items()):
             name, (f, t) = x
             assert f <= t
             totalt += t
@@ -1443,7 +1443,7 @@ class DocTestRunner:
     #/////////////////////////////////////////////////////////////////
     def merge(self, other):
         d = self._name2ft
-        for name, (f, t) in other._name2ft.items():
+        for name, (f, t) in list(other._name2ft.items()):
             if name in d:
                 print "*** DocTestRunner.merge: '" + name + "' in both" \
                     " testers; summing outcomes."

@@ -74,7 +74,7 @@ def test_wsgirequest_charset_fileupload():
         request = WSGIRequest(environ)
 
         assert len(request.POST) == 1
-        assert isinstance(request.POST.keys()[0], str)
+        assert isinstance(list(request.POST.keys())[0], str)
         fs = request.POST['thefile']
         assert isinstance(fs, cgi.FieldStorage)
         assert isinstance(fs.filename, str)
@@ -83,7 +83,7 @@ def test_wsgirequest_charset_fileupload():
 
         request.charset = 'UTF-8'
         assert len(request.POST) == 1
-        assert isinstance(request.POST.keys()[0], str)
+        assert isinstance(list(request.POST.keys())[0], str)
         fs = request.POST['thefile']
         assert isinstance(fs, cgi.FieldStorage)
         assert isinstance(fs.filename, unicode)

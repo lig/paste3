@@ -206,7 +206,7 @@ class WatchThreads(object):
         now = time.time()
 
 
-        workers = thread_pool.worker_tracker.items()
+        workers = list(thread_pool.worker_tracker.items())
         workers.sort(key=lambda v: v[1][0])
         threads = []
         for thread_id, (time_started, worker_environ) in workers:

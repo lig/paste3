@@ -125,7 +125,7 @@ class StackedObjectProxy(object):
         """Return a list of the StackedObjectProxy's and proxied
         object's (if one exists) names.
         """
-        dir_list = dir(self.__class__) + self.__dict__.keys()
+        dir_list = dir(self.__class__) + list(self.__dict__.keys())
         try:
             dir_list.extend(dir(self._current_obj()))
         except TypeError:
@@ -345,7 +345,7 @@ class Registry(object):
     def cleanup(self):
         """Remove all objects from all StackedObjectProxy instances that
         were tracked at this Registry context"""
-        for stacked, obj in self.reglist[-1].itervalues():
+        for stacked, obj in self.reglist[-1].values():
             stacked._pop_object(obj)
         self.reglist.pop()
 
@@ -498,7 +498,7 @@ class StackedObjectRestorer(object):
         # their methods to act differently when a restoration context is active
         # in the current thread
         for reglist in registry.reglist:
-            for stacked, obj in reglist.itervalues():
+            for stacked, obj in reglist.values():
                 self.enable_restoration(stacked)
 
     def get_saved_proxied_obj(self, stacked, request_id):

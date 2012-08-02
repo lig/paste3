@@ -309,7 +309,7 @@ def raw_interactive(application, path='', raise_on_wsgi_error=False,
         basic_environ['PATH_INFO'] = path_info
         if query:
             basic_environ['QUERY_STRING'] = query
-    for name, value in environ.items():
+    for name, value in list(environ.items()):
         name = name.replace('__', '.')
         basic_environ[name] = value
     if ('SERVER_NAME' in basic_environ
@@ -406,7 +406,7 @@ def dump_environ(environ, start_response):
     variables out as a plain text response.
     """
     output = []
-    keys = environ.keys()
+    keys = list(environ.keys())
     keys.sort()
     for k in keys:
         v = str(environ[k]).replace("\n","\n    ")

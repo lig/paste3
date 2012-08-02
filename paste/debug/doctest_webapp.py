@@ -131,7 +131,7 @@ def show(path_info, example_name):
     stdout = StringIO(stdout)
     headers = rfc822.Message(stdout)
     content = stdout.read()
-    for header, value in headers.items():
+    for header, value in list(headers.items()):
         if header.lower() == 'status' and int(value.split()[0]) == 200:
             continue
         if header.lower() in ('content-type', 'content-length'):

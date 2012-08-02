@@ -8,7 +8,7 @@ import re
 
 class Mock(object):
     def __init__(self, **kw):
-        for name, value in kw.items():
+        for name, value in list(kw.items()):
             setattr(self, name, value)
 
 class Supplement(Mock):

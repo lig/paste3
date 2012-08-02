@@ -59,7 +59,7 @@ class SessionMiddleware(object):
             raise KeyError(
                 "The session_type %s is unknown (I know about %s)"
                 % (self.session_type,
-                   ', '.join(self.session_classes.keys())))
+                   ', '.join(list(self.session_classes.keys()))))
         kw = {}
         for config_name, kw_name, coercer, default in self.store_args:
             value = coercer(store_config.get(config_name, default))
@@ -82,7 +82,7 @@ class SessionMiddleware(object):
         try:
             app_iter = self.application(environ, cookie_start_response)
         except httpexceptions.HTTPException as e:
-            headers = (e.headers or {}).items()
+            headers = list((e.headers or {}).items())
             service.addCookie(headers)
             e.headers = dict(headers)
             service.close()

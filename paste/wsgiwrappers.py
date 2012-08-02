@@ -349,7 +349,7 @@ class WSGIResponse(object):
         status_text = STATUS_CODE_TEXT[self.status_code]
         status = '%s %s' % (self.status_code, status_text)
         response_headers = self.headers.headeritems()
-        for c in self.cookies.values():
+        for c in list(self.cookies.values()):
             response_headers.append(('Set-Cookie', c.output(header='')))
         start_response(status, response_headers)
         is_file = isinstance(self.content, file)
@@ -437,7 +437,7 @@ class WSGIResponse(object):
         status_text = STATUS_CODE_TEXT[self.status_code]
         status = '%s %s' % (self.status_code, status_text)
         response_headers = self.headers.headeritems()
-        for c in self.cookies.values():
+        for c in list(self.cookies.values()):
             response_headers.append(('Set-Cookie', c.output(header='')))
         return status, response_headers, self.get_content()
     

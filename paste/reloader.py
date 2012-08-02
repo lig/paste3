@@ -95,7 +95,7 @@ class Monitor(object):
             except:
                 print >> sys.stderr, "Error calling paste.reloader callback %r:" % file_callback
                 traceback.print_exc()
-        for module in sys.modules.values():
+        for module in list(sys.modules.values()):
             try:
                 filename = module.__file__
             except (AttributeError, ImportError) as exc:

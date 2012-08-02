@@ -225,7 +225,7 @@ class EvalException(object):
         """
         start_response('200 OK', [('Content-type', 'text/x-json')])
         data = [];
-        items = self.debug_infos.values()
+        items = list(self.debug_infos.values())
         items.sort(lambda a, b: cmp(a.created, b.created))
         data = [item.json() for item in items]
         return [repr(data)]
@@ -448,7 +448,7 @@ class EvalHTMLFormatter(formatter.HTMLFormatter):
 
 def make_table(items):
     if isinstance(items, dict):
-        items = items.items()
+        items = list(items.items())
         items.sort()
     rows = []
     i = 0

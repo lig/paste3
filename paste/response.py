@@ -68,7 +68,7 @@ class HeaderDict(dict):
 
     def headeritems(self):
         result = []
-        for key, value in self.items():
+        for key, value in list(self.items()):
             if isinstance(value, list):
                 for v in value:
                     result.append((key, str(v)))

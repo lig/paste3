@@ -66,7 +66,7 @@ class DataApp(object):
         if allowed_methods is not None:
             self.allowed_methods = allowed_methods
         self.headers = headers or []
-        for (k, v) in kwargs.items():
+        for (k, v) in list(kwargs.items()):
             header = get_header(k)
             header.update(self.headers, v)
         ACCEPT_RANGES.update(self.headers, bytes=True)

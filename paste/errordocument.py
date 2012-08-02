@@ -218,7 +218,7 @@ def make_errordocument(app, global_conf, **kw):
         404 = /lib/msg/404.html
     """
     map = {}
-    for status, redir_loc in kw.items():
+    for status, redir_loc in list(kw.items()):
         try:
             status = int(status)
         except ValueError:
@@ -340,7 +340,7 @@ class _StatusBasedRedirect(object):
             if url:
                 url_ = url[0]
                 new_environ = {}
-                for k, v in environ.items():
+                for k, v in list(environ.items()):
                     if k != 'QUERY_STRING':
                         new_environ['QUERY_STRING'] = urlparse(url_)[4]
                     else:

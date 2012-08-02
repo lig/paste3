@@ -272,7 +272,7 @@ def paste_script_template_renderer(content, vars, filename=None):
 class bunch(dict):
 
     def __init__(self, **kw):
-        for name, value in kw.items():
+        for name, value in list(kw.items()):
             setattr(self, name, value)
 
     def __setattr__(self, name, value):
@@ -295,7 +295,7 @@ class bunch(dict):
 
     def __repr__(self):
         items = [
-            (k, v) for k, v in self.items()]
+            (k, v) for k, v in list(self.items())]
         items.sort()
         return '<%s %s>' % (
             self.__class__.__name__,
@@ -338,7 +338,7 @@ def url(v):
     return urllib.parse.quote(v)
 
 def attr(**kw):
-    kw = kw.items()
+    kw = list(kw.items())
     kw.sort()
     parts = []
     for name, value in kw:

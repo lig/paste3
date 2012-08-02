@@ -30,7 +30,7 @@ class AbstractFormatter(object):
     def format_collected_data(self, exc_data):
         general_data = {}
         if self.show_extra_data:
-            for name, value_list in exc_data.extra_data.items():
+            for name, value_list in list(exc_data.extra_data.items()):
                 if isinstance(name, tuple):
                     importance, title = name
                 else:
@@ -83,10 +83,10 @@ class AbstractFormatter(object):
             exc_data.exception_value)
         data_by_importance = {'important': [], 'normal': [],
                               'supplemental': [], 'extra': []}
-        for (importance, name), value in general_data.items():
+        for (importance, name), value in list(general_data.items()):
             data_by_importance[importance].append(
                 (name, value))
-        for value in data_by_importance.values():
+        for value in list(data_by_importance.values()):
             value.sort()
         return self.format_combine(data_by_importance, lines, exc_info)
 
@@ -215,7 +215,7 @@ class TextFormatter(AbstractFormatter):
                 return '%s: %s' % (title, s)
         elif isinstance(value, dict):
             lines = ['\n', title, '-'*len(title)]
-            items = value.items()
+            items = list(value.items())
             items.sort()
             for n, v in items:
                 try:
@@ -301,7 +301,7 @@ class HTMLFormatter(TextFormatter):
 
     def zebra_table(self, title, rows, table_class="variables"):
         if isinstance(rows, dict):
-            rows = rows.items()
+            rows = list(rows.items())
             rows.sort()
         table = ['<table class="%s">' % table_class,
                  '<tr class="header"><th colspan="2">%s</th></tr>'

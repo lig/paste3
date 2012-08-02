@@ -222,7 +222,7 @@ class TestApp(object):
             params = urllib.parse.urlencode(params)
         if hasattr(params, 'items'):
             # Some other multi-dict like format
-            params = urllib.parse.urlencode(params.items())
+            params = urllib.parse.urlencode(list(params.items()))
         if upload_files:
             params = cgi.parse_qsl(params, keep_blank_values=True)
             content_type, params = self.encode_multipart(
@@ -302,7 +302,7 @@ class TestApp(object):
         """
         if not headers:
             return
-        for header, value in headers.items():
+        for header, value in list(headers.items()):
             if header.lower() == 'content-type':
                 var = 'CONTENT_TYPE'
             elif header.lower() == 'content-length':
@@ -370,9 +370,9 @@ class TestApp(object):
         __tracebackhide__ = True
         if self.cookies:
             c = BaseCookie()
-            for name, value in self.cookies.items():
+            for name, value in list(self.cookies.items()):
                 c[name] = value
-            hc = '; '.join(['='.join([m.key, m.value]) for m in c.values()])
+            hc = '; '.join(['='.join([m.key, m.value]) for m in list(c.values())])
             req.environ['HTTP_COOKIE'] = hc
         req.environ['paste.testing'] = True
         req.environ['paste.testing_variables'] = {}
@@ -393,7 +393,7 @@ class TestApp(object):
             sys.stderr.write(out.getvalue())
         res = self._make_response(raw_res, end_time - start_time)
         res.request = req
-        for name, value in req.environ['paste.testing_variables'].items():
+        for name, value in list(req.environ['paste.testing_variables'].items()):
             if hasattr(res, name):
                 raise ValueError(
                     "paste.testing_variables contains the variable %r, but "
@@ -408,7 +408,7 @@ class TestApp(object):
         res.cookies_set = {}
         for header in res.all_headers('set-cookie'):
             c = BaseCookie(header)
-            for key, morsel in c.items():
+            for key, morsel in list(c.items()):
                 self.cookies[key] = morsel.value
                 res.cookies_set[key] = morsel.value
         if self.post_request_hook:
@@ -1023,7 +1023,7 @@ class Form(object):
         fields = self.fields.get(name)
         assert fields is not None, (
             "No field by the name %r found (fields: %s)"
-            % (name, ', '.join(map(repr, self.fields.keys()))))
+            % (name, ', '.join(map(repr, list(self.fields.keys())))))
         assert len(fields) == 1, (
             "Multiple fields match %r: %s"
             % (name, ', '.join(map(repr, fields))))
@@ -1103,7 +1103,7 @@ class Form(object):
         if name is not None:
             field = self.get(name, index=index)
             submit.append((field.name, field.value_if_submitted()))
-        for name, fields in self.fields.items():
+        for name, fields in list(self.fields.items()):
             if name is None:
                 continue
             for field in fields:
@@ -1384,7 +1384,7 @@ class TestFileEnvironment(object):
         printresult = _popget(kw, 'printresult', True)
         args = map(str, args)
         assert not kw, (
-            "Arguments not expected: %s" % ', '.join(kw.keys()))
+            "Arguments not expected: %s" % ', '.join(list(kw.keys())))
         if ' ' in script:
             assert not args, (
                 "You cannot give a multi-argument script (%r) "
@@ -1518,7 +1518,7 @@ class ProcResult(object):
         self.files_deleted = {}
         self.files_updated = {}
         self.files_created = files_after.copy()
-        for path, f in files_before.items():
+        for path, f in list(files_before.items()):
             if path not in files_after:
                 self.files_deleted[path] = f
                 continue
@@ -1554,7 +1554,7 @@ class ProcResult(object):
             ('updated', self.files_updated, True)]:
             if files:
                 s.append('-- %s: -------------------' % name)
-                files = files.items()
+                files = list(files.items())
                 files.sort()
                 last = ''
                 for path, f in files:
