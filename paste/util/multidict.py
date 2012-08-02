@@ -3,7 +3,13 @@
 import cgi
 import copy
 import sys
-from UserDict import DictMixin
+try:
+    from UserDict import DictMixin
+except ImportError:
+    if sys.version_info.major == 3:
+        from collections import MutableMapping as DictMixin
+    else:
+        from paste.util.UserDict24 import DictMixin
 
 class MultiDict(DictMixin):
 
