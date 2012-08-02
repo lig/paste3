@@ -80,9 +80,9 @@ class AuthDigestAuthenticator(object):
     def build_authentication(self, stale = ''):
         """ builds the authentication error """
         nonce  = md5(
-            "%s:%s" % (time.time(), random.random())).hexdigest()
+            ("%s:%s" % (time.time(), random.random())).encode()).hexdigest()
         opaque = md5(
-            "%s:%s" % (time.time(), random.random())).hexdigest()
+            ("%s:%s" % (time.time(), random.random())).encode()).hexdigest()
         self.nonce[nonce] = None
         parts = {'realm': self.realm, 'qop': 'auth',
                  'nonce': nonce, 'opaque': opaque }
