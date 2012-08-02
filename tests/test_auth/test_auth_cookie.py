@@ -7,7 +7,7 @@ from paste.wsgilib import raw_interactive, dump_environ
 from paste.response import header_value
 from paste.httpexceptions import *
 from http.cookies import SimpleCookie
-import urllib2, os
+import urllib.request, urllib.error, urllib.parse, os
         
 def build(application,setenv, *args, **kwargs):
     def setter(environ, start_response):

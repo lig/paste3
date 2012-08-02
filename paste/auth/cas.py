@@ -18,7 +18,7 @@ passed to the system so that it can be used as middleware at any stage
 of processing.  It has the secondary goal of allowing for other
 authentication methods to be used concurrently.
 """
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from paste.request import construct_url
 from paste.httpexceptions import HTTPSeeOther, HTTPForbidden
 
@@ -69,10 +69,10 @@ def AuthCASHandler(application, authority):
             ticket = qs.pop().split("=", 1)[1]
             environ['QUERY_STRING'] = "&".join(qs)
             service = construct_url(environ)
-            args = urllib.urlencode(
+            args = urllib.parse.urlencode(
                     {'service': service,'ticket': ticket})
             requrl = authority + "validate?" + args
-            result = urllib.urlopen(requrl).read().split("\n")
+            result = urllib.request.urlopen(requrl).read().split("\n")
             if 'yes' == result[0]:
                 environ['REMOTE_USER'] = result[1]
                 environ['AUTH_TYPE'] = 'cas'
@@ -80,7 +80,7 @@ def AuthCASHandler(application, authority):
             exce = CASLoginFailure()
         else:
             service = construct_url(environ)
-            args = urllib.urlencode({'service': service})
+            args = urllib.parse.urlencode({'service': service})
             location = authority + "login?" + args
             exce = CASAuthenticate(location)
         return exce.wsgi_application(environ, start_response)

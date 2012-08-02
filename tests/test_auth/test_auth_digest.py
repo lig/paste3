@@ -57,7 +57,7 @@ def test_digest():
 #
 
 if os.environ.get("TEST_SOCKET",""):
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
     from paste.debug.testserver import serve
     server = serve(application)
 
@@ -66,9 +66,9 @@ if os.environ.get("TEST_SOCKET",""):
         import socket
         socket.setdefaulttimeout(5)
         uri = ("http://%s:%s" % server.server_address) + path
-        auth = urllib2.HTTPDigestAuthHandler()
+        auth = urllib.request.HTTPDigestAuthHandler()
         auth.add_password(realm,uri,username,password)
-        opener = urllib2.build_opener(auth)
+        opener = urllib.request.build_opener(auth)
         result = opener.open(uri)
         return result.read()
 
@@ -81,7 +81,7 @@ if os.environ.get("TEST_SOCKET",""):
         try:
             authfetch('bing','wrong')
             assert False, "this should raise an exception"
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             assert e.code == 401
 
     def test_shutdown():

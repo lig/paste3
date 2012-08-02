@@ -21,7 +21,7 @@ import cgi
 from http.cookies import SimpleCookie, CookieError
 from io import StringIO
 import urllib.parse
-import urllib
+import urllib.request, urllib.parse, urllib.error
 try:
     from collections import MutableMapping as DictMixin
 except ImportError:
@@ -234,14 +234,14 @@ def construct_url(environ, with_query_string=True, with_path_info=True,
                 url += ':' + environ['SERVER_PORT']
 
     if script_name is None:
-        url += urllib.quote(environ.get('SCRIPT_NAME',''))
+        url += urllib.parse.quote(environ.get('SCRIPT_NAME',''))
     else:
-        url += urllib.quote(script_name)
+        url += urllib.parse.quote(script_name)
     if with_path_info:
         if path_info is None:
-            url += urllib.quote(environ.get('PATH_INFO',''))
+            url += urllib.parse.quote(environ.get('PATH_INFO',''))
         else:
-            url += urllib.quote(path_info)
+            url += urllib.parse.quote(path_info)
     if with_query_string:
         if querystring is None:
             if environ.get('QUERY_STRING'):

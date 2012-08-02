@@ -19,7 +19,7 @@ if pyOpenSSL is installed, it also provides SSL capabilities.
 
 import atexit
 import traceback
-import socket, sys, threading, urllib.parse, queue, urllib
+import socket, sys, threading, urllib.parse, queue, urllib.request, urllib.parse, urllib.error
 import posixpath
 import time
 import _thread
@@ -177,7 +177,7 @@ class WSGIHandlerMixin:
         """
 
         (scheme, netloc, path, query, fragment) = urllib.parse.urlsplit(self.path)
-        path = urllib.unquote(path)
+        path = urllib.parse.unquote(path)
         endslash = path.endswith('/')
         path = posixpath.normpath(path)
         if endslash and path != '/':

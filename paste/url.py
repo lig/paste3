@@ -4,7 +4,7 @@
 """
 This module implements a class for handling URLs.
 """
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import cgi
 from paste import request
 # Imported lazily from FormEncode:
@@ -20,9 +20,9 @@ def html_quote(v):
 def url_quote(v):
     if v is None:
         return ''
-    return urllib.quote(str(v))
+    return urllib.parse.quote(str(v))
 
-url_unquote = urllib.unquote
+url_unquote = urllib.parse.unquote
 
 def js_repr(v):
     if v is None:
@@ -202,7 +202,7 @@ class URLResource(object):
                 elif val is None:
                     continue
                 vars.append((name, val))
-            s += urllib.urlencode(vars, True)
+            s += urllib.parse.urlencode(vars, True)
         return s
 
     href = property(href__get)

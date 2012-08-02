@@ -67,7 +67,7 @@ def serve(application, host=None, port=None, handler=None):
     return server
 
 if __name__ == '__main__':
-    import urllib
+    import urllib.request, urllib.parse, urllib.error
     from paste.wsgilib import dump_environ
     server = serve(dump_environ)
     baseuri = ("http://%s:%s" % server.server_address)
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         import socket
         socket.setdefaulttimeout(5)
         # build a uri, fetch and return
-        return urllib.urlopen(baseuri + path).read()
+        return urllib.request.urlopen(baseuri + path).read()
       
     assert "PATH_INFO: /foo" in fetch("/foo")
     assert "PATH_INFO: /womble" in fetch("/womble")
@@ -90,4 +90,4 @@ if __name__ == '__main__':
     # and then schedule a stop()
     server.stop()
     # and then... fetch it...
-    urllib.urlopen(baseuri)
+    urllib.request.urlopen(baseuri)

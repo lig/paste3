@@ -45,8 +45,8 @@ except ImportError:
     import md5 as hashlib
 import http.cookies
 from paste import request
-from urllib import quote as url_quote
-from urllib import unquote as url_unquote
+from urllib.parse import quote as url_quote
+from urllib.parse import unquote as url_unquote
 
 DEFAULT_DIGEST = hashlib.md5
 

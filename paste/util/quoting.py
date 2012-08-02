@@ -3,8 +3,9 @@
 
 import cgi
 import html.entities
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import re
+import sys
 
 __all__ = ['html_quote', 'html_unquote', 'url_quote', 'url_unquote',
            'strip_html']
@@ -56,11 +57,11 @@ def html_unquote(s, encoding=None):
     >>> html_unquote('\xe1\x80\xa9')
     u'\u1029'
     """
-    if isinstance(s, str):
+    if isinstance(s, str) and sys.version_info.major == 2:
         if s == '':
             # workaround re.sub('', '', u'') returning '' < 2.5.2
             # instead of u'' >= 2.5.2
-            return u''
+            return eval("u''")
         s = s.decode(encoding or default_encoding)
     return _unquote_re.sub(_entity_subber, s)
 
@@ -90,8 +91,8 @@ def comment_quote(s):
     comment = _comment_quote_re.sub('-&gt;', comment)
     return comment
 
-url_quote = urllib.quote
-url_unquote = urllib.unquote
+url_quote = urllib.parse.quote
+url_unquote = urllib.parse.unquote
 
 if __name__ == '__main__':
     import doctest

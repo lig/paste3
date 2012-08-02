@@ -135,7 +135,7 @@ dashes to give CamelCase style names.
 
 """
 import mimetypes
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import re
 from rfc822 import formatdate, parsedate_tz, mktime_tz
 from time import time as now
@@ -1007,7 +1007,7 @@ class _Authorization(_SingleValueHeader):
         path = path or "/"
         (_, realm) = challenge.split('realm="')
         (realm, _) = realm.split('"', 1)
-        auth = urllib2.AbstractDigestAuthHandler()
+        auth = urllib.request.AbstractDigestAuthHandler()
         auth.add_password(realm, path, username, password)
         (token, challenge) = challenge.split(' ', 1)
         chal = urllib2.parse_keqv_list(urllib2.parse_http_list(challenge))

@@ -11,7 +11,7 @@ effects of command-line scripts.
 
 import sys
 import random
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import urllib.parse
 import mimetypes
 import time
@@ -190,7 +190,7 @@ class TestApp(object):
         __tracebackhide__ = True
         if params:
             if not isinstance(params, (str, unicode)):
-                params = urllib.urlencode(params, doseq=True)
+                params = urllib.parse.urlencode(params, doseq=True)
             if '?' in url:
                 url += '&'
             else:
@@ -219,10 +219,10 @@ class TestApp(object):
         environ = self._make_environ()
         # @@: Should this be all non-strings?
         if isinstance(params, (list, tuple, dict)):
-            params = urllib.urlencode(params)
+            params = urllib.parse.urlencode(params)
         if hasattr(params, 'items'):
             # Some other multi-dict like format
-            params = urllib.urlencode(params.items())
+            params = urllib.parse.urlencode(params.items())
         if upload_files:
             params = cgi.parse_qsl(params, keep_blank_values=True)
             content_type, params = self.encode_multipart(
@@ -597,8 +597,8 @@ class TestResponse(object):
             "You can only follow redirect responses (not %s)"
             % self.full_status)
         location = self.header('location')
-        type, rest = urllib.splittype(location)
-        host, path = urllib.splithost(rest)
+        type, rest = urllib.parse.splittype(location)
+        host, path = urllib.parse.splithost(rest)
         # @@: We should test that it's not a remote redirect
         return self.test_app.get(location, **kw)
 
