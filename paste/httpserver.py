@@ -153,7 +153,7 @@ class WSGIHandlerMixin:
         if exc_info:
             try:
                 if self.wsgi_headers_sent:
-                    raise exc_info[0], exc_info[1], exc_info[2]
+                    raise exc_info[0](exc_info[1]).with_traceback(exc_info[2])
                 else:
                     # In this case, we're going to assume that the
                     # higher-level code is currently handling the

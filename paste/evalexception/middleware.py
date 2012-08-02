@@ -398,7 +398,7 @@ class DebugInfo(object):
             if id(frame) == tbid:
                 return frame
         else:
-            raise ValueError, (
+            raise ValueError(
                 "No frame by id %s found from %r" % (tbid, self.frames))
 
     def wsgi_application(self, environ, start_response):

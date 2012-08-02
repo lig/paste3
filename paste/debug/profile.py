@@ -200,7 +200,7 @@ class DecoratedProfile(object):
             f.close()
         if exc_info:
             # We captured an exception earlier, now we re-raise it
-            raise exc_info[0], exc_info[1], exc_info[2]
+            raise exc_info[0](exc_info[1]).with_traceback(exc_info[2])
         return result
         
     def format_function(self, func, *args, **kw):

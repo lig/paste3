@@ -445,8 +445,8 @@ class WSGIResponse(object):
     # See http://docs.python.org/lib/bltin-file-objects.html
     def write(self, content):
         if not self._is_str_iter:
-            raise IOError, "This %s instance's content is not writable: (content " \
-                'is an iterator)' % self.__class__.__name__
+            raise IOError("This %s instance's content is not writable: (content " \
+                'is an iterator)' % self.__class__.__name__)
         self.content.append(content)
 
     def flush(self):
@@ -454,8 +454,8 @@ class WSGIResponse(object):
 
     def tell(self):
         if not self._is_str_iter:
-            raise IOError, 'This %s instance cannot tell its position: (content ' \
-                'is an iterator)' % self.__class__.__name__
+            raise IOError('This %s instance cannot tell its position: (content ' \
+                'is an iterator)' % self.__class__.__name__)
         return sum([len(chunk) for chunk in self._iter])
 
     ########################################

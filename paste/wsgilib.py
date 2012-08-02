@@ -132,7 +132,7 @@ class chained_app_iters(object):
             except:
                 got_exc = sys.exc_info()
         if got_exc:
-            raise got_exc[0], got_exc[1], got_exc[2]
+            raise got_exc[0](got_exc[1]).with_traceback(got_exc[2])
 
     def __del__(self):
         if not self._closed:
@@ -328,7 +328,7 @@ def raw_interactive(application, path='', raise_on_wsgi_error=False,
             try:
                 if headers_sent:
                     # Re-raise original exception only if headers sent
-                    raise exc_info[0], exc_info[1], exc_info[2]
+                    raise exc_info[0](exc_info[1]).with_traceback(exc_info[2])
             finally:
                 # avoid dangling circular reference
                 exc_info = None

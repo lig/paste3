@@ -176,7 +176,7 @@ class Handler(object):
         if exc_info:
             try:
                 if self.started:
-                    raise exc_info[0], exc_info[1], exc_info[2]
+                    raise exc_info[0](exc_info[1]).with_traceback(exc_info[2])
             finally:
                 exc_info = None
         
