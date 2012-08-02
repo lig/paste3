@@ -293,7 +293,7 @@ class WSGIHandlerMixin:
                 if hasattr(result,'close'):
                     result.close()
                 result = None
-        except socket.error, exce:
+        except socket.error as exce:
             self.wsgi_connection_drop(exce, environ)
             return
         except:
@@ -439,7 +439,7 @@ class WSGIHandler(WSGIHandlerMixin, BaseHTTPRequestHandler):
         # don't bother logging disconnects while handling a request
         try:
             BaseHTTPRequestHandler.handle(self)
-        except SocketErrors, exce:
+        except SocketErrors as exce:
             self.wsgi_connection_drop(exce)
 
     def address_string(self):

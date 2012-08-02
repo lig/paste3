@@ -98,7 +98,7 @@ class Monitor(object):
         for module in sys.modules.values():
             try:
                 filename = module.__file__
-            except (AttributeError, ImportError), exc:
+            except (AttributeError, ImportError) as exc:
                 continue
             if filename is not None:
                 filenames.append(filename)

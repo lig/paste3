@@ -290,7 +290,7 @@ def format_environ(environ):
                 environ_template.substitute(
                 key=cgi.escape(str(key)),
                 value=cgi.escape(str(value))))
-        except Exception, e:
+        except Exception as e:
             environ_rows.append(
                 environ_template.substitute(
                 key=cgi.escape(str(key)),
