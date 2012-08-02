@@ -37,6 +37,6 @@ def test_basic(key='key', val='bingles'):
     assert ("%s: %s" % (key,val.replace("\n","\n    "))) in content
 
 def test_roundtrip():
-    roundtrip = str('').join(map(chr,xrange(256)))
+    roundtrip = str('').join(map(chr,range(256)))
     test_basic(roundtrip,roundtrip)
 

@@ -454,7 +454,7 @@ class IntSet(object):
             elif r[1] is _MAXINF:
                 ubranges.append([r[0],1])
             else:
-                for val in xrange(r[0],r[1]):
+                for val in range(r[0],r[1]):
                     yield val
         if ubranges:
             while True:

@@ -131,7 +131,7 @@ def test_double_registry():
 def test_really_deep_registry():
     keylist = ['fred', 'wilma', 'barney', 'homer', 'marge', 'bart', 'lisa',
         'maggie']
-    valuelist = range(0, len(keylist))
+    valuelist = list(range(0, len(keylist)))
     obj = {'hi':'people'}
     wsgiapp = RegistryUsingApp(regobj, obj)
     wsgiapp = RegistryManager(wsgiapp)
