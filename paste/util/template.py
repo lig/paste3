@@ -77,7 +77,7 @@ class Template(object):
 
     def __init__(self, content, name=None, namespace=None):
         self.content = content
-        self._unicode = isinstance(content, unicode)
+        self._unicode = isinstance(content, str)
         self.name = name
         self._parsed = parse(content, name=name)
         if namespace is None:
@@ -226,7 +226,7 @@ class Template(object):
                 return ''
             if self._unicode:
                 try:
-                    value = unicode(value)
+                    value = str(value)
                 except UnicodeDecodeError:
                     value = str(value)
             else:
@@ -243,7 +243,7 @@ class Template(object):
                         'Cannot decode str value %r into unicode '
                         '(no default_encoding provided)' % value)
                 value = value.decode(self.default_encoding)
-            elif not self._unicode and isinstance(value, unicode):
+            elif not self._unicode and isinstance(value, str):
                 if not self.decode_encoding:
                     raise UnicodeEncodeError(
                         'Cannot encode unicode value %r into str '
@@ -319,21 +319,21 @@ def html_quote(value):
         return ''
     if not isinstance(value, str):
         if hasattr(value, '__unicode__'):
-            value = unicode(value)
+            value = str(value)
         else:
             value = str(value)
     value = cgi.escape(value, 1)
-    if isinstance(value, unicode):
+    if isinstance(value, str):
         value = value.encode('ascii', 'xmlcharrefreplace')
     return value
 
 def url(v):
     if not isinstance(v, str):
         if hasattr(v, '__unicode__'):
-            v = unicode(v)
+            v = str(v)
         else:
             v = str(v)
-    if isinstance(v, unicode):
+    if isinstance(v, str):
         v = v.encode('utf8')
     return urllib.parse.quote(v)
 

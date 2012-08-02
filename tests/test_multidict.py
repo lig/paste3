@@ -61,13 +61,13 @@ def _test_unicode_dict(decode_param_names=False):
     d.errors = 'ignore'
 
     if decode_param_names:
-        key_str = unicode
+        key_str = str
         d.decode_keys = True
     else:
         key_str = str
 
     def assert_unicode(obj):
-        assert isinstance(obj, unicode)
+        assert isinstance(obj, str)
 
     def assert_key_str(obj):
         assert isinstance(obj, key_str)
@@ -75,61 +75,61 @@ def _test_unicode_dict(decode_param_names=False):
     def assert_unicode_item(obj):
         key, value = obj
         assert isinstance(key, key_str)
-        assert isinstance(value, unicode)
+        assert isinstance(value, str)
 
-    assert list(d.items()) == [('a', u'a test')]
+    assert list(d.items()) == [('a', 'a test')]
     map(assert_key_str, list(d.keys()))
     map(assert_unicode, list(d.values()))
 
     d['b'] = '2 test'
     d['c'] = '3 test'
-    assert list(d.items()) == [('a', u'a test'), ('b', u'2 test'), ('c', u'3 test')]
+    assert list(d.items()) == [('a', 'a test'), ('b', '2 test'), ('c', '3 test')]
     map(assert_unicode_item, list(d.items()))
 
     d['b'] = '4 test'
-    assert list(d.items()) == [('a', u'a test'), ('c', u'3 test'), ('b', u'4 test')]
+    assert list(d.items()) == [('a', 'a test'), ('c', '3 test'), ('b', '4 test')]
     map(assert_unicode_item, list(d.items()))
 
     d.add('b', '5 test')
     assert_raises(KeyError, d.getone, "b")
-    assert d.getall('b') == [u'4 test', u'5 test']
+    assert d.getall('b') == ['4 test', '5 test']
     map(assert_unicode, d.getall('b'))
-    assert list(d.items()) == [('a', u'a test'), ('c', u'3 test'), ('b', u'4 test'),
-                         ('b', u'5 test')]
+    assert list(d.items()) == [('a', 'a test'), ('c', '3 test'), ('b', '4 test'),
+                         ('b', '5 test')]
     map(assert_unicode_item, list(d.items()))
 
     del d['b']
-    assert list(d.items()) == [('a', u'a test'), ('c', u'3 test')]
+    assert list(d.items()) == [('a', 'a test'), ('c', '3 test')]
     map(assert_unicode_item, list(d.items()))
-    assert d.pop('xxx', u'5 test') == u'5 test'
-    assert isinstance(d.pop('xxx', u'5 test'), unicode)
-    assert d.getone('a') == u'a test'
-    assert isinstance(d.getone('a'), unicode)
-    assert d.popitem() == ('c', u'3 test')
+    assert d.pop('xxx', '5 test') == '5 test'
+    assert isinstance(d.pop('xxx', '5 test'), str)
+    assert d.getone('a') == 'a test'
+    assert isinstance(d.getone('a'), str)
+    assert d.popitem() == ('c', '3 test')
     d['c'] = '3 test'
     assert_unicode_item(d.popitem())
-    assert list(d.items()) == [('a', u'a test')]
+    assert list(d.items()) == [('a', 'a test')]
     map(assert_unicode_item, list(d.items()))
 
     item = []
     assert d.setdefault('z', item) is item
     items = list(d.items())
-    assert items == [('a', u'a test'), ('z', item)]
+    assert items == [('a', 'a test'), ('z', item)]
     assert isinstance(items[1][0], key_str)
     assert isinstance(items[1][1], list)
 
-    assert isinstance(d.setdefault('y', 'y test'), unicode)
-    assert isinstance(d['y'], unicode)
+    assert isinstance(d.setdefault('y', 'y test'), str)
+    assert isinstance(d['y'], str)
 
-    assert d.mixed() == {u'a': u'a test', u'y': u'y test', u'z': item}
-    assert d.dict_of_lists() == {u'a': [u'a test'], u'y': [u'y test'],
-                                 u'z': [item]}
+    assert d.mixed() == {'a': 'a test', 'y': 'y test', 'z': item}
+    assert d.dict_of_lists() == {'a': ['a test'], 'y': ['y test'],
+                                 'z': [item]}
     del d['z']
     map(assert_unicode_item, iter(d.mixed().items()))
     map(assert_unicode_item, [(k, v[0]) for \
                                    k, v in d.dict_of_lists().items()])
 
-    assert u'a' in d
+    assert 'a' in d
     dcopy = d.copy()
     assert dcopy is not d
     assert dcopy == d
@@ -137,7 +137,7 @@ def _test_unicode_dict(decode_param_names=False):
     assert dcopy != d
 
     d[(1, None)] = (None, 1)
-    assert list(d.items()) == [('a', u'a test'), ('y', u'y test'), ('x', u'x test'),
+    assert list(d.items()) == [('a', 'a test'), ('y', 'y test'), ('x', 'x test'),
                          ((1, None), (None, 1))]
     item = list(d.items())[-1]
     assert isinstance(item[0], tuple)
@@ -154,6 +154,6 @@ def _test_unicode_dict(decode_param_names=False):
     assert ufs.name == fs.name
     assert isinstance(ufs.name, key_str)
     assert ufs.filename == fs.filename
-    assert isinstance(ufs.filename, unicode)
+    assert isinstance(ufs.filename, str)
     assert isinstance(ufs.value, str)
     assert ufs.value == 'hello'

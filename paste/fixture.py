@@ -125,7 +125,7 @@ class TestApp(object):
         ``post_request_hook`` is a function, similar to
         ``pre_request_hook``, to be called after requests are made.
         """
-        if isinstance(app, (str, unicode)):
+        if isinstance(app, (str, str)):
             from paste.deploy import loadapp
             # @@: Should pick up relative_to from calling module's
             # __file__
@@ -189,7 +189,7 @@ class TestApp(object):
         # Hide from py.test:
         __tracebackhide__ = True
         if params:
-            if not isinstance(params, (str, unicode)):
+            if not isinstance(params, (str, str)):
                 params = urllib.parse.urlencode(params, doseq=True)
             if '?' in url:
                 url += '&'
@@ -790,9 +790,9 @@ class TestResponse(object):
         of the response.  Whitespace is normalized when searching
         for a string.
         """
-        if not isinstance(s, (str, unicode)):
+        if not isinstance(s, (str, str)):
             s = str(s)
-        if isinstance(s, unicode):
+        if isinstance(s, str):
             ## FIXME: we don't know that this response uses utf8:
             s = s.encode('utf8')
         return (self.body.find(s) != -1
@@ -1683,7 +1683,7 @@ def _space_prefix(pref, full, sep=None, indent=None, include_sep=True):
 def _make_pattern(pat):
     if pat is None:
         return None
-    if isinstance(pat, (str, unicode)):
+    if isinstance(pat, (str, str)):
         pat = re.compile(pat)
     if hasattr(pat, 'search'):
         return pat.search
@@ -1709,7 +1709,7 @@ def setup_module(module=None):
     if module is None:
         # The module we were called from must be the module...
         module = sys._getframe().f_back.f_globals['__name__']
-    if isinstance(module, (str, unicode)):
+    if isinstance(module, (str, str)):
         module = sys.modules[module]
     if hasattr(module, 'reset_state'):
         module.reset_state()

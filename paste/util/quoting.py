@@ -31,16 +31,16 @@ def html_quote(v, encoding=None):
         return ''
     elif isinstance(v, str):
         return cgi.escape(v, 1)
-    elif isinstance(v, unicode):
+    elif isinstance(v, str):
         return cgi.escape(v.encode(encoding), 1)
     else:
-        return cgi.escape(unicode(v).encode(encoding), 1)
+        return cgi.escape(str(v).encode(encoding), 1)
 
 _unquote_re = re.compile(r'&([a-zA-Z]+);')
 def _entity_subber(match, name2c=html.entities.name2codepoint):
     code = name2c.get(match.group(1))
     if code:
-        return unichr(code)
+        return chr(code)
     else:
         return match.group(0)
 

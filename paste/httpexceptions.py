@@ -206,7 +206,7 @@ class HTTPException(Exception):
                 for (k, v) in self.headers:
                     args[k.lower()] = escfunc(v)
         for key, value in list(args.items()):
-            if isinstance(value, unicode):
+            if isinstance(value, str):
                 args[key] = value.encode('utf8', 'xmlcharrefreplace')
         return template % args
 
@@ -236,7 +236,7 @@ class HTTPException(Exception):
         else:
             replace_header(headers, 'content-type', 'text/plain')
             content = self.plain(environ)
-        if isinstance(content, unicode):
+        if isinstance(content, str):
             content = content.encode('utf8')
             cur_content_type = (
                 header_value(headers, 'content-type')

@@ -209,7 +209,7 @@ def encode_ip_timestamp(ip, timestamp):
 
 
 def maybe_encode(s, encoding='utf8'):
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         s = s.encode(encoding)
     return s
 

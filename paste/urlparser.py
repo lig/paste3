@@ -133,7 +133,7 @@ class URLParser(object):
                     "'constructor .ext = import_expr'; you gave %r "
                     "(=%r)" % (name, value))
             ext = name[len('constructor '):].strip()
-            if isinstance(value, (str, unicode)):
+            if isinstance(value, (str, str)):
                 value = import_string.eval_import(value)
             self.constructors[ext] = value
 
@@ -525,7 +525,7 @@ class PkgResourcesParser(StaticURLParser):
     def __init__(self, egg_or_spec, resource_name, manager=None, root_resource=None):
         if pkg_resources is None:
             raise NotImplementedError("This class requires pkg_resources.")
-        if isinstance(egg_or_spec, (str, unicode)):
+        if isinstance(egg_or_spec, (str, str)):
             self.egg = pkg_resources.get_distribution(egg_or_spec)
         else:
             self.egg = egg_or_spec

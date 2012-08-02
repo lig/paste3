@@ -231,7 +231,7 @@ class PathProxyURLMap(object):
         self.builder = builder
 
     def __setitem__(self, url, app):
-        if isinstance(app, (str, unicode)):
+        if isinstance(app, (str, str)):
             app_fn = os.path.join(self.base_path, app)
             app = self.builder(app_fn)
         url = self.map.normalize_url(url)

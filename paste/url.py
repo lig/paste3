@@ -39,7 +39,7 @@ def js_repr(v):
              for key, value in v])
     elif isinstance(v, str):
         return repr(v)
-    elif isinstance(v, unicode):
+    elif isinstance(v, str):
         # @@: how do you do Unicode literals in Javascript?
         return repr(v.encode('UTF-8'))
     elif isinstance(v, (float, int)):

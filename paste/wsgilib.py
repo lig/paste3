@@ -159,7 +159,7 @@ class encode_unicode_app_iter(object):
 
     def next(self):
         content = self.app_iter.next()
-        if isinstance(content, unicode):
+        if isinstance(content, str):
             content = content.encode(self.encoding, self.errors)
         return content
 
