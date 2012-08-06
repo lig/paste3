@@ -4,10 +4,7 @@
 Map URL prefixes to WSGI applications.  See ``URLMap``
 """
 
-try:
-    from collections import MutableMapping as DictMixin
-except ImportError:
-    from UserDict import DictMixin
+from collections import MutableMapping, KeysView
 import re
 import os
 import cgi
@@ -70,7 +67,7 @@ def parse_path_expression(path):
         s += path
     return s
 
-class URLMap(DictMixin):
+class URLMap(MutableMapping, KeysView):
 
     """
     URLMap instances are dictionary-like object that dispatch to one
