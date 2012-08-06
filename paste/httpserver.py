@@ -734,7 +734,7 @@ class ThreadPool(object):
         return thread_id in threading._active
 
     def add_worker_thread(self, *args, **kwargs):
-        index = self._worker_count.next()
+        index = next(self._worker_count)
         worker = threading.Thread(target=self.worker_thread_callback,
                                   args=args, kwargs=kwargs,
                                   name=("worker %d" % index))
