@@ -53,10 +53,10 @@ class add_close(object):
     def __del__(self):
         if not self._closed:
             # We can't raise an error or anything at this stage
-            print >> sys.stderr, (
+            print((
                 "Error: app_iter.close() was not called when finishing "
                 "WSGI request. finalization function %s not called"
-                % self.close_func)
+                % self.close_func), file=sys.stderr)
 
 class add_start_close(object):
     """
@@ -92,10 +92,10 @@ class add_start_close(object):
     def __del__(self):
         if not self._closed:
             # We can't raise an error or anything at this stage
-            print >> sys.stderr, (
+            print((
                 "Error: app_iter.close() was not called when finishing "
                 "WSGI request. finalization function %s not called"
-                % self.close_func)
+                % self.close_func), file=sys.stderr)
 
 class chained_app_iters(object):
 
@@ -137,10 +137,10 @@ class chained_app_iters(object):
     def __del__(self):
         if not self._closed:
             # We can't raise an error or anything at this stage
-            print >> sys.stderr, (
+            print((
                 "Error: app_iter.close() was not called when finishing "
                 "WSGI request. finalization function %s not called"
-                % self.close_func)
+                % self.close_func), file=sys.stderr)
 
 class encode_unicode_app_iter(object):
     """

@@ -839,7 +839,7 @@ class ThreadPool(object):
                        ids="\n  ".join(map(str, found))),
                 subject="Process restart (too many zombie threads)")
             self.shutdown(10)
-            print 'Shutting down', threading.currentThread()
+            print('Shutting down', threading.currentThread())
             raise ServerExit(3)
 
     def worker_thread_callback(self, message=None):
@@ -880,8 +880,8 @@ class ThreadPool(object):
                         # removing all remnants of any exception, so
                         # we should log it now.  But ideally no
                         # exception should reach this level
-                        print >> sys.stderr, (
-                            'Unexpected exception in worker %r' % runnable)
+                        print((
+                            'Unexpected exception in worker %r' % runnable), file=sys.stderr)
                         traceback.print_exc()
                     if thread_id in self.dying_threads:
                         # That last exception was intended to kill me
@@ -947,7 +947,7 @@ class ThreadPool(object):
                         timed_out = True
                         worker.join(force_quit_timeout)
                     if worker.isAlive():
-                        print "Worker %s won't die" % worker
+                        print("Worker %s won't die" % worker)
                         need_force_quit = True
                 if need_force_quit:
                     import atexit
@@ -961,7 +961,7 @@ class ThreadPool(object):
                         if mod == 'threading':
                             atexit._exithandlers.remove(callback)
                     atexit._run_exitfuncs()
-                    print 'Forcefully exiting process'
+                    print('Forcefully exiting process')
                     os._exit(3)
                 else:
                     self.logger.info('All workers eventually killed')
@@ -1020,7 +1020,7 @@ class ThreadPool(object):
             if e.strip()]
         server.sendmail(from_address, error_emails, message)
         server.quit()
-        print 'email sent to', error_emails, message
+        print('email sent to', error_emails, message)
 
 class ThreadPoolMixIn(object):
     """
@@ -1301,10 +1301,10 @@ def serve(application, host=None, port=None, handler=None, ssl_pem=None,
         protocol = is_ssl and 'https' or 'http'
         host, port = server.server_address[:2]
         if host == '0.0.0.0':
-            print 'serving on 0.0.0.0:%s view at %s://127.0.0.1:%s' % \
-                (port, protocol, port)
+            print('serving on 0.0.0.0:%s view at %s://127.0.0.1:%s' % \
+                (port, protocol, port))
         else:
-            print "serving on %s://%s:%s" % (protocol, host, port)
+            print("serving on %s://%s:%s" % (protocol, host, port))
         try:
             server.serve_forever()
         except KeyboardInterrupt:

@@ -458,7 +458,7 @@ def make_table(items):
         try:
             pprint.pprint(value, out)
         except Exception as e:
-            print >> out, 'Error: %s' % e
+            print('Error: %s' % e, file=out)
         value = html_quote(out.getvalue())
         if len(value) > 100:
             # @@: This can actually break the HTML :(

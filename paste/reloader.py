@@ -93,7 +93,7 @@ class Monitor(object):
             try:
                 filenames.extend(file_callback())
             except:
-                print >> sys.stderr, "Error calling paste.reloader callback %r:" % file_callback
+                print("Error calling paste.reloader callback %r:" % file_callback, file=sys.stderr)
                 traceback.print_exc()
         for module in list(sys.modules.values()):
             try:
@@ -119,8 +119,8 @@ class Monitor(object):
             if filename not in self.module_mtimes:
                 self.module_mtimes[filename] = mtime
             elif self.module_mtimes[filename] < mtime:
-                print >> sys.stderr, (
-                    "%s changed; reloading..." % filename)
+                print((
+                    "%s changed; reloading..." % filename), file=sys.stderr)
                 return False
         return True
 
