@@ -215,13 +215,13 @@ class CatchingIter(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         __traceback_supplement__ = (
             Supplement, self.error_middleware, self.environ)
         if self.closed:
             raise StopIteration
         try:
-            return self.app_iterator.next()
+            return next(self.app_iterator)
         except StopIteration:
             self.closed = True
             close_response = self._close()

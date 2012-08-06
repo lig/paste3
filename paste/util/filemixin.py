@@ -25,7 +25,7 @@ class FileMixin(object):
     def flush(self):
         pass
 
-    def next(self):
+    def __next__(self):
         return self.readline()
 
     def readline(self, size=None):

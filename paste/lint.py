@@ -259,10 +259,10 @@ class IteratorWrapper(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         assert not self.closed, (
             "Iterator read after closed")
-        v = self.iterator.next()
+        v = next(self.iterator)
         if self.check_start_response is not None:
             assert self.check_start_response, (
                 "The application returns and we started iterating over its body, but start_response has not yet been called")

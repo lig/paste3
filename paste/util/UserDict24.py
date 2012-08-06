@@ -131,7 +131,7 @@ class DictMixin:
         return value
     def popitem(self):
         try:
-            k, v = iter(self.items()).next()
+            k, v = next(iter(self.items()))
         except StopIteration:
             raise KeyError('container is empty')
         del self[k]

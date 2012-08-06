@@ -50,7 +50,7 @@ class looper_iter(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         if self.pos >= len(self.seq):
             raise StopIteration
         result = loop_pos(self.seq, self.pos), self.seq[self.pos]
@@ -79,7 +79,7 @@ class loop_pos(object):
         return self.seq[self.pos]
     item = property(item)
 
-    def next(self):
+    def __next__(self):
         try:
             return self.seq[self.pos+1]
         except IndexError:
@@ -132,7 +132,7 @@ class loop_pos(object):
         """
         if self.last:
             return True
-        return self._compare_group(self.item, self.next, getter)
+        return self._compare_group(self.item, self.__next__, getter)
 
     def _compare_group(self, item, other, getter):
         if getter is None:

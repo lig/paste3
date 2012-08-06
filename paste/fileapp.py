@@ -246,7 +246,7 @@ class _FileIter(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         chunk_size = self.block_size
         if self.size is not None:
             if chunk_size > self.size:
