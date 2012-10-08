@@ -251,7 +251,7 @@ class WSGIHandlerMixin:
             key = 'HTTP_' + k.replace("-","_").upper()
             if key in ('HTTP_CONTENT_TYPE','HTTP_CONTENT_LENGTH'):
                 continue
-            self.wsgi_environ[key] = ','.join(self.headers.getheaders(k))
+            self.wsgi_environ[key] = ','.join(self.headers.getallmatchingheaders(k))
 
         if hasattr(self.connection,'get_context'):
             self.wsgi_environ['wsgi.url_scheme'] = 'https'
@@ -891,7 +891,6 @@ class ThreadPool(object):
                         del self.worker_tracker[thread_id]
                     except KeyError:
                         pass
-                    sys.exc_clear()
                 self.idle_workers.append(thread_id)
         finally:
             try:
